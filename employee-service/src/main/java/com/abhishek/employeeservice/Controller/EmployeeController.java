@@ -3,6 +3,7 @@ package com.abhishek.employeeservice.Controller;
 import com.abhishek.employeeservice.Service.EmployeeService;
 import com.abhishek.employeeservice.common.EmployeeRequestDTO;
 import com.abhishek.employeeservice.common.EmployeeResponseDTO;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,12 +28,12 @@ public class EmployeeController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseEntity<EmployeeResponseDTO> createEmployee(@RequestBody EmployeeRequestDTO requestDTO) {
+    public ResponseEntity<EmployeeResponseDTO> createEmployee(@Valid @RequestBody EmployeeRequestDTO requestDTO) {
         return ResponseEntity.ok().body(employeeService.createEmployee(requestDTO));
     }
 
     @PutMapping(value = "/{id}")
-    public String updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+    public String updateEmployee(@PathVariable Long id, @Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
         return employeeService.updateEmployee(id, employeeRequestDTO);
     }
 }

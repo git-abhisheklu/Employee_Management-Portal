@@ -30,8 +30,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeResponseDTO createEmployee(EmployeeRequestDTO employee) {
-        Employee saved = employeeRepository.save( EmployeeMapper.toEmployee(employee));
+    public EmployeeResponseDTO createEmployee(EmployeeRequestDTO employeeRequestDTO) {
+        Employee saved = employeeRepository.save(EmployeeMapper.toEntity(employeeRequestDTO));
         return EmployeeMapper.toDTO(saved);
     }
 
@@ -57,11 +57,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public String deleteEmployeeById(Long id) {
         Optional<Employee> byId = employeeRepository.findById(id);
-        if(byId.isPresent()){
+        if (byId.isPresent()) {
             employeeRepository.deleteById(id);
-            return "Employee with the id " + id +" has been deleted.";
+            return "Employee with the id " + id + " has been deleted.";
         }
-        return "Employee with the id " + id +" is not present. ";
+        return "Employee with the id " + id + " is not present. ";
     }
 
 }

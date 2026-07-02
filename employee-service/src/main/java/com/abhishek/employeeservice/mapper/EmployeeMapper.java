@@ -4,11 +4,12 @@ import com.abhishek.employeeservice.Entity.Employee;
 import com.abhishek.employeeservice.common.EmployeeRequestDTO;
 import com.abhishek.employeeservice.common.EmployeeResponseDTO;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 public class EmployeeMapper {
-    public static EmployeeResponseDTO toDTO(Employee emp){
+    public static EmployeeResponseDTO toDTO(Employee emp) {
         EmployeeResponseDTO responseDTO = new EmployeeResponseDTO();
         responseDTO.setId(emp.getId());
         responseDTO.setName(emp.getName());
@@ -18,7 +19,7 @@ public class EmployeeMapper {
         return responseDTO;
     }
 
-    public static Employee toEmployee(EmployeeRequestDTO employeeRequestDTO){
+    public static Employee toEntity(EmployeeRequestDTO employeeRequestDTO) {
         Employee employee = new Employee();
         employee.setId(employeeRequestDTO.getId());
         employee.setName(employeeRequestDTO.getName());
