@@ -25,10 +25,10 @@ public class EmployeeMapper {
         employee.setName(employeeRequestDTO.getName());
         employee.setDepartment(employeeRequestDTO.getDepartment());
         employee.setEmail(employeeRequestDTO.getEmail());
-        employee.setMobileNumber(employeeRequestDTO.getMobileNumber());
-        employee.setSalary(employeeRequestDTO.getSalary());
+        employee.setMobileNumber(Long.valueOf(employeeRequestDTO.getMobileNumber()));
+        employee.setSalary(Double.valueOf(employeeRequestDTO.getSalary()));
         employee.setAddress(employeeRequestDTO.getAddress());
-        employee.setDateOfBirth(employeeRequestDTO.getDateOfBirth());
+        employee.setDateOfBirth(LocalDate.parse(employeeRequestDTO.getDateOfBirth()));
         return employee;
     }
 }

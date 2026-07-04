@@ -15,5 +15,5 @@ public interface EmployeeService {
 
     public String updateEmployee(Long id, EmployeeRequestDTO employeeRequestDTO);
 
-    public String deleteEmployeeById(Long id);
+    public String deleteEmployeeById(String id);
 }
