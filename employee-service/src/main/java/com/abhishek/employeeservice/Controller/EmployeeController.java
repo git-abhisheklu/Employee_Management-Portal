@@ -3,6 +3,7 @@ package com.abhishek.employeeservice.Controller;
 import com.abhishek.employeeservice.Service.EmployeeService;
 import com.abhishek.employeeservice.common.EmployeeRequestDTO;
 import com.abhishek.employeeservice.common.EmployeeResponseDTO;
+//import com.abhishek.employeeservice.kafka.Producer;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -19,6 +20,7 @@ import java.util.List;
 public class EmployeeController {
 
     private EmployeeService employeeService;
+//    private Producer producer;
 
     @GetMapping(value = "/{empId}", produces = "application/json")
     @Operation(summary = "Get Employee by employee id.")
@@ -46,7 +48,7 @@ public class EmployeeController {
 
     @DeleteMapping(value = "/{id}")
     @Operation(summary = "Delete Employee by employee id")
-    public ResponseEntity<String> deleteEmployeeById(@PathVariable String id){
+    public ResponseEntity<String> deleteEmployeeById(@PathVariable String id) {
         return ResponseEntity.ok().body(employeeService.deleteEmployeeById(id));
     }
 }
