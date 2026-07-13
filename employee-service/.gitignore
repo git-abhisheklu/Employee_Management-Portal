@@ -48,4 +48,4 @@ build/
 
 ### Application Config ###
 src/main/resources/application.yaml
-src/main/resources/data.sql
+src/main/resources/Mysql_data.sql
