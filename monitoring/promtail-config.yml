@@ -1,0 +1,39 @@
+<!-- Promtail is the agent that tails your log files and ships them to Loki: -->
+server:
+  http_listen_port: 9080
+  grpc_listen_port: 0
+
+positions:
+  filename: /tmp/positions.yaml   # tracks how far it has read each file
+
+clients:
+  - url: http://loki:3100/loki/api/v1/push
+
+scrape_configs:
+
+  - job_name: 'api-gateway'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: api-gateway
+          service: api-gateway
+          __path__: /app/logs/api-gateway/*.log   # matches log files
+
+  - job_name: 'employee-service'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: employee-service
+          service: employee-service
+          __path__: /app/logs/employee-service/*.log
+
+  - job_name: 'service-registry'
+    static_configs:
+      - targets:
+          - localhost
+        labels:
+          job: service-registry
+          service: service-registry
+          __path__: /app/logs/service-registry/*.log

@@ -16,6 +16,7 @@ services:
       - '--config.file=/etc/prometheus/prometheus.yml'
       - '--storage.tsdb.retention.time=7d'    # keep 7 days of metrics
 
+  # ── Grafana (UI monitoring) ──────────────────────────
   grafana:
     image: grafana/grafana:latest
     extra_hosts:
@@ -31,6 +32,36 @@ services:
       - prometheus
     volumes:
       - grafana-data:/var/lib/grafana
+
+  # ── Zipkin (distributed tracing) ──────────────────────────
+  zipkin:
+    image: openzipkin/zipkin:latest
+    container_name: zipkin
+    restart: unless-stopped
+    ports:
+      - "9411:9411"   # UI + API endpoint
+
+  # ── Loki (log aggregation) ─────────────────────────────────
+  loki:
+    image: grafana/loki:latest
+    container_name: loki
+    restart: unless-stopped
+    ports:
+      - "3100:3100"
+    command: -config.file=/etc/loki/local-config.yaml
+
+  # ── Promtail (log shipper: reads logs → sends to Loki) ─────
+  promtail:
+    image: grafana/promtail:latest
+    container_name: promtail
+    restart: unless-stopped
+    volumes:
+      - ./promtail-config.yml:/etc/promtail/config.yml
+      - /var/log:/var/log                      # system logs
+      - ../logs:/app/logs                      # your Spring Boot log files
+    command: -config.file=/etc/promtail/config.yml
+    depends_on:
+      - loki
 
 volumes:
   grafana-data:
